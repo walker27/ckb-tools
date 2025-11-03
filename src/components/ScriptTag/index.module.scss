@@ -1,0 +1,29 @@
+
+.tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  flex-wrap: wrap;
+  
+  width: fit-content;
+  max-width: 100%;
+  // height: 24px;
+  font-size: 12px;
+  white-space: nowrap;
+  border-radius: 4px;
+  cursor: default;
+
+  &.lock {
+    $color: #4D92FF;
+    color: $color;
+    background-color: rgb(from $color r g b / 16%);
+  }
+
+  &.type {
+    $color: #FFB041;
+    color: $color;
+    background-color: rgb(from $color r g b / 16%);
+  }
+
+}

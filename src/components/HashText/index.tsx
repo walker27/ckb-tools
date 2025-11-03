@@ -1,6 +1,8 @@
 import { cn } from "@/lib/utils";
 import { Typography, type TypographyProps } from "antd";
-import { useState, type ComponentProps, type ReactNode } from "react";
+import type { CopyConfig } from "antd/es/typography/Base";
+import type { TextProps } from "antd/es/typography/Text";
+import { useMemo, useState, type ComponentProps, type ReactNode } from "react";
 
 
 const { Text } = Typography
@@ -39,7 +41,7 @@ export default function HashText(props: HashTextProps) {
     const head = elliObj.head ?? 0;
     const tail = elliObj.tail;
     const ellipsisLen = head + (tail < 0 ? -tail : text.slice(tail).length);
-    if(ellipsisLen < text.length) {
+    if (ellipsisLen < text.length) {
       content.dom = (
         <>
           {text.slice(0, head)}...{text.slice(tail)}
@@ -47,16 +49,27 @@ export default function HashText(props: HashTextProps) {
       );
     }
   }
-
+  
+  const copyCfg = useMemo(() => {
+    return mergeCopyConfig(propsCopyable, copyable, { text: content.origin })
+  }, [propsCopyable, copyable, content.origin]);
   return (
     <Text
       {...textProps}
       className={cn("font-hash", propsCopyable ? "inline-block pr-5" : "", textProps.className)}
       onMouseOver={() => setCopyable(true)}
       onMouseLeave={() => setCopyable(false)}
-      copyable={propsCopyable && copyable}
+      copyable={copyCfg}
       content={content.origin}
       children={content.dom}
     />
   )
+}
+
+function mergeCopyConfig(propsCopyable: TextProps['copyable'], copyable: boolean, extConfig: CopyConfig) {
+  if (!propsCopyable || !copyable) return false;
+  return {
+    ...(propsCopyable === true ? {} : propsCopyable),
+    ...extConfig,
+  }
 }

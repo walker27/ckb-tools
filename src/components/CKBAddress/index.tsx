@@ -16,6 +16,7 @@ import type { ScriptLike } from "@ckb-ccc/ccc"
 import { useQuery } from "@tanstack/react-query"
 import { addressFromScript, getAddressScript } from "./tool"
 import HashText from "../HashText"
+import ScriptTag from "../ScriptTag"
 
 type CKBAddressProps = {
   address?: string | ScriptLike
@@ -57,7 +58,10 @@ export default function CKBAddress(props: CKBAddressProps) {
         </div>
         <div className="p-2 bg-accent rounded-md">
           <div>
-            <div className="text-[#aaa]">Script</div>
+            <div className="flex flex-row gap-2 text-[#aaa] mb-2">
+              Script
+              <ScriptTag category="lock" script={addressInfo.script} />
+            </div>
             <div className="pl-2">
               <div className="flex flex-row items-start">
                 <div className="flex-none basis-[90px]">code hash:</div>

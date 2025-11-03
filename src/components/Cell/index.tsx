@@ -7,17 +7,22 @@ import { Button } from "antd";
 import { rootQueryClient } from "@/lib/queryClient";
 import { shannonToCkb } from "@/lib/tool";
 import HashText from "../HashText";
-import type { CellAny } from "@ckb-ccc/ccc";
+import { ccc, mol, type CellAny } from "@ckb-ccc/ccc";
 import QuerySuspense from "../QuerySuspense";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "../ui/hover-card";
 import { Link } from "react-router";
 import { cn } from "@/lib/utils";
+import ScriptTag from "../ScriptTag";
+import BigNumber from "bignumber.js";
+import { Clock4 } from "lucide-react";
+import { parseSince } from "./tool.since";
+import CellSince from "./Since";
 
 
 type CellProps = {
   txHash: string
   index: number | string
-  since?: string;
+  since?: ccc.SinceLike;
   showTransacion?: boolean;
 }
 
@@ -56,16 +61,15 @@ export default function Cell(props: CellProps) {
   }, [txHash, network, haveTxCache])
 
   if (txHash === "0x0000000000000000000000000000000000000000000000000000000000000000") return null;
-
   return (
     <div className="flex flex-col border w-75 rounded-md">
-      <div className="flex flex-row border-b p-2 justify-between">
+      <div className="flex flex-row border-b p-2 justify-between items-center">
         <span className="font-hash">{
           showTransacion
             ? <><Link to={`/transaction/${txHash}`}><HashText className="hover:text-primary" ellipsis="transaction">{txHash}</HashText></Link>:{index}</>
             : `#${index}`
         } </span>
-        <span className="ml-2">{since}</span>
+        <CellSince value={since} />
       </div>
 
       <div className="flex-1 flex flex-col gap-2 p-2">
@@ -80,6 +84,8 @@ export default function Cell(props: CellProps) {
     </div>
   )
 }
+
+
 
 
 
@@ -125,13 +131,18 @@ function CellContent({ cellInfo }: { cellInfo: CellAny }) {
   const typeScript = cellInfo.cellOutput.type;
   return (
     <div className="flex-1 bg-gray-500/5 font-hash p-2 rounded-sm">
-      <div
-        className={cn("text-[#999] w-fit", !!typeScript ? "cursor-pointer hover:text-primary" : "")}
-        onClick={() => {
-          if (!typeScript) return
-          setShowTypeHash(flag => !flag)
-        }}
-      >type{showTypeHash ? " hash" :""}</div>
+      <div className="flex felx-row items-center gap-1">
+        <div
+          className={cn("text-[#999] w-fit", !!typeScript ? "cursor-pointer hover:text-primary" : "")}
+          onClick={() => {
+            if (!typeScript) return
+            setShowTypeHash(flag => !flag)
+          }}
+        >type{showTypeHash ? " hash" : ""}
+        </div>
+        {typeScript && <ScriptTag category="type" script={typeScript} />}
+      </div>
+
       {/* <div className="pl-4">{JSON.stringify(cellInfo.cellOutput.type || null)}</div> */}
       <div className="pl-4">
         {

@@ -114,7 +114,7 @@ function TxDetail({ txHash, query }: { txHash: string, query: UseQueryResult<Cli
             render={(_, { transaction }) => (
               <div className="flex flex-row flex-wrap gap-2">
                 {
-                  transaction.inputs.map((input) => {
+                  (transaction as ClientTransactionResponse['transaction']).inputs.map((input) => {
                     const txHash = input.previousOutput.txHash;
                     const index = input.previousOutput.index;
                     return (
