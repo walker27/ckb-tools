@@ -1,4 +1,4 @@
-import type { KnownScriptInfo } from "./tool";
+import type { KnownScriptDepolyment, KnownScriptInfo } from "./tool";
 const knownScriptInfoList: KnownScriptInfo[] = [
 
   {
@@ -274,25 +274,32 @@ const knownScriptInfoList: KnownScriptInfo[] = [
     },
   },
 
-  {
-    name: "USDI Asset",
-    description: "",
-    rfc: undefined,
-    website: "https://www.interpaystellar.com/",
-    sourceUrl: undefined,
-    verified: true,
-    deployments: {
-      mainnet: [{
-        tag: "",
-        hashType: "type",
-        dataHash: "0x50bd8d6680b8b9cf98b73f3c08faf8b2a21914311954118ad6609be6e78a1b95",
-        typeHash: "0xbfa35a9c38a676682b65ade8f02be164d48632281477e36f8dc2f41f79e56bfc",
-        codeHash: "0xbfa35a9c38a676682b65ade8f02be164d48632281477e36f8dc2f41f79e56bfc",
-        deprecated: false,
-      }],
-      testnet: [],
-    },
-  },
+  // {
+  //   name: "USDI Asset",
+  //   description: "",
+  //   rfc: undefined,
+  //   website: "https://www.interpaystellar.com/",
+  //   sourceUrl: undefined,
+  //   verified: true,
+  //   deployments: {
+  //     mainnet: [{
+  //       tag: "",
+  //       hashType: "type",
+  //       dataHash: "0x50bd8d6680b8b9cf98b73f3c08faf8b2a21914311954118ad6609be6e78a1b95",
+  //       typeHash: "0xbfa35a9c38a676682b65ade8f02be164d48632281477e36f8dc2f41f79e56bfc",
+  //       codeHash: "0xbfa35a9c38a676682b65ade8f02be164d48632281477e36f8dc2f41f79e56bfc",
+  //       deprecated: false,
+  //     }, {
+  //       tag: "",
+  //       hashType: "data1",
+  //       dataHash: "0x50bd8d6680b8b9cf98b73f3c08faf8b2a21914311954118ad6609be6e78a1b95",
+  //       typeHash: "",
+  //       codeHash: "0x50bd8d6680b8b9cf98b73f3c08faf8b2a21914311954118ad6609be6e78a1b95",
+  //       deprecated: false,
+  //     }],
+  //     testnet: [],
+  //   },
+  // },
 
   {
     name: "RGB++",
@@ -311,14 +318,7 @@ const knownScriptInfoList: KnownScriptInfo[] = [
         deprecated: false,
       }],
       testnet: [{
-        tag: "new",
-        hashType: "type",
-        dataHash: "0x7e458568bc12ba00bfb10ec1805a485ee1c14b16f4a6930ce1498e2e36e6374a",
-        typeHash: "0x61ca7a4796a4eb19ca4f0d065cb9b10ddcf002f10f7cbb810c706cb6bb5c3248",
-        codeHash: "0x61ca7a4796a4eb19ca4f0d065cb9b10ddcf002f10f7cbb810c706cb6bb5c3248",
-        deprecated: false,
-      },{
-        tag: "old",
+        tag: "",
         hashType: "type",
         dataHash: "0x7e458568bc12ba00bfb10ec1805a485ee1c14b16f4a6930ce1498e2e36e6374a",
         typeHash: "0xd07598deec7ce7b5665310386b4abd06a6d48843e953c5cc2112ad0d5a220364",
@@ -414,7 +414,7 @@ const knownScriptInfoList: KnownScriptInfo[] = [
         typeHash: "0x3419a1c09eb2567f6552ee7a8ecffd64155cffe0f1796e6e61ec088d740c1356",
         codeHash: "0x3419a1c09eb2567f6552ee7a8ecffd64155cffe0f1796e6e61ec088d740c1356",
         deprecated: false,
-      },{
+      }, {
         tag: "",
         hashType: "type",
         dataHash: "0x0fb343953ee78c9986b091defb6252154e0bb51044fd2879fde5b27314506111",
@@ -668,14 +668,7 @@ const knownScriptInfoList: KnownScriptInfo[] = [
         deprecated: false,
       }],
       testnet: [{
-        tag: "new",
-        hashType: "type",
-        dataHash: "0xd3db94edf2a2d040fb4f0fc93f21e721ef181719717384598c536fd1cfc3ad58",
-        typeHash: "0x00cdf8fab0f8ac638758ebf5ea5e4052b1d71e8a77b9f43139718621f6849326",
-        codeHash: "0x00cdf8fab0f8ac638758ebf5ea5e4052b1d71e8a77b9f43139718621f6849326",
-        deprecated: false,
-      },{
-        tag: "old",
+        tag: "",
         hashType: "type",
         dataHash: "0xd3db94edf2a2d040fb4f0fc93f21e721ef181719717384598c536fd1cfc3ad58",
         typeHash: "0x80a09eca26d77cea1f5a69471c59481be7404febf40ee90f886c36a948385b55",
@@ -957,13 +950,34 @@ const knownScriptInfoList: KnownScriptInfo[] = [
     verified: true,
     cellTypeTag: "udt",
     deployments: {
-      mainnet: [],
+      mainnet: [{
+        tag: "@bfa35a9c",
+        hashType: "type",
+        dataHash: "0x50bd8d6680b8b9cf98b73f3c08faf8b2a21914311954118ad6609be6e78a1b95",
+        typeHash: "0xbfa35a9c38a676682b65ade8f02be164d48632281477e36f8dc2f41f79e56bfc",
+        codeHash: "0xbfa35a9c38a676682b65ade8f02be164d48632281477e36f8dc2f41f79e56bfc",
+        deprecated: false,
+      }, {
+        tag: "@50bd8d66",
+        hashType: "data1",
+        dataHash: "0x50bd8d6680b8b9cf98b73f3c08faf8b2a21914311954118ad6609be6e78a1b95",
+        typeHash: "",
+        codeHash: "0x50bd8d6680b8b9cf98b73f3c08faf8b2a21914311954118ad6609be6e78a1b95",
+        deprecated: false,
+      }],
       testnet: [{
-        tag: "",
+        tag: "@25c29dc3",
         hashType: "type",
         dataHash: "0x50bd8d6680b8b9cf98b73f3c08faf8b2a21914311954118ad6609be6e78a1b95",
         typeHash: "0x25c29dc317811a6f6f3985a7a9ebc4838bd388d19d0feeecf0bcd60f6c0975bb",
         codeHash: "0x25c29dc317811a6f6f3985a7a9ebc4838bd388d19d0feeecf0bcd60f6c0975bb",
+        deprecated: false,
+      }, {
+        tag: "@cc9dc33e",
+        hashType: "type",
+        dataHash: "0x50bd8d6680b8b9cf98b73f3c08faf8b2a21914311954118ad6609be6e78a1b95",
+        typeHash: "0xcc9dc33ef234e14bc788c43a4848556a5fb16401a04662fc55db9bb201987037",
+        codeHash: "0xcc9dc33ef234e14bc788c43a4848556a5fb16401a04662fc55db9bb201987037",
         deprecated: false,
       }],
     },
@@ -1104,6 +1118,53 @@ const knownScriptInfoList: KnownScriptInfo[] = [
         dataHash: "0x685ae74d35fdbffe2ac08b46c428f89136fd3b10d170f1c0570ddd0b28199235",
         typeHash: "0x07521d0aa8e66ef441ebc31204d86bb23fc83e9edc58c19dbb1b0ebe64336ec0",
         codeHash: "0x07521d0aa8e66ef441ebc31204d86bb23fc83e9edc58c19dbb1b0ebe64336ec0",
+        deprecated: false,
+      }],
+    },
+  },
+
+  {
+    name: "CKBFS",
+    description: "CKBFS is a protocol designed to describe a witnesses based file storage system.",
+    rfc: "https://github.com/code-monad/ckbfs/blob/master/RFC.md",
+    // rfc: "https://github.com/code-monad/ckbfs/blob/master/RFC.v3.md",
+    website: "https://talk.nervos.org/t/ckbfs-protocol-a-standard-for-witnesses-based-content-storage-system/8342",
+    sourceUrl: "https://github.com/code-monad/ckbfs",
+    verified: true,
+    cellTypeTag: "ckbfs",
+    deployments: {
+      mainnet: [{
+        tag: "v2",
+        hashType: "data1",
+        dataHash: "0x31e6376287d223b8c0410d562fb422f04d1d617b2947596a14c3d2efb7218d3a",
+        typeHash: "0xfd2058c9a0c0183354cf637e25d2707ffa9bb6fa2ba9b29f4ebc6be3e54ad7eb",
+        codeHash: "0x31e6376287d223b8c0410d562fb422f04d1d617b2947596a14c3d2efb7218d3a",
+        //txHash: 0xc9b6698f44c3b80e7e1c48823b2714e432b93f0206ffaf9df885d23267ed2ebc
+        deprecated: false,
+      }, {
+        tag: "v3",
+        hashType: "data1",
+        dataHash: "0xb5d13ffe0547c78021c01fe24dce2e959a1ed8edbca3cb93dd2e9f57fb56d695",
+        typeHash: "0xcc5411e8b70e551d7a3dd806256533cff6bc12118b48dd7b2d5d2292c3651add",
+        codeHash: "0xb5d13ffe0547c78021c01fe24dce2e959a1ed8edbca3cb93dd2e9f57fb56d695",
+        //txHash: 0xc9b6698f44c3b80e7e1c48823b2714e432b93f0206ffaf9df885d23267ed2ebc
+        deprecated: false,
+      }],
+      testnet: [{
+        tag: "v2",
+        hashType: "data1",
+        dataHash: "0x31e6376287d223b8c0410d562fb422f04d1d617b2947596a14c3d2efb7218d3a",
+        typeHash: "0x7c6dcab8268201f064dc8676b5eafa60ca2569e5c6209dcbab0eb64a9cb3aaa3",
+        codeHash: "0x31e6376287d223b8c0410d562fb422f04d1d617b2947596a14c3d2efb7218d3a",
+        //txHash: 0x2c8c9ad3134743368b5a79977648f96c5bd0aba187021a72fb624301064d3616
+        deprecated: false,
+      }, {
+        tag: "v3",
+        hashType: "data1",
+        dataHash: "0xb5d13ffe0547c78021c01fe24dce2e959a1ed8edbca3cb93dd2e9f57fb56d695",
+        typeHash: "0xaebf5a7b541da9603c2066a9768d3d18fea2e7f3c1943821611545155fecc671",
+        codeHash: "0xb5d13ffe0547c78021c01fe24dce2e959a1ed8edbca3cb93dd2e9f57fb56d695",
+        //txHash: 0x1488b592b0946589730c906c6d9a46fb82c1181156fc1a4251adce14002a9cfb
         deprecated: false,
       }],
     },

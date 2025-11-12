@@ -14,9 +14,10 @@ import { Link } from "react-router";
 import { cn } from "@/lib/utils";
 import ScriptTag from "../ScriptTag";
 import BigNumber from "bignumber.js";
-import { Clock4 } from "lucide-react";
+import { Clock4, RefreshCw } from "lucide-react";
 import { parseSince } from "./tool.since";
 import CellSince from "./Since";
+import parseData from "./dataDecoder";
 
 
 type CellProps = {
@@ -92,14 +93,31 @@ export default function Cell(props: CellProps) {
 function CellDetail(props: CellProps) {
   const { txHash, index } = props;
   const cellQuery = useCell(txHash, index);
+  const [pannel, setPannel] = useState<"assets" | "source">("assets")
 
   return (
     <QuerySuspense query={cellQuery}>
       {(cellInfo) => (
         <>
-          <div><CKBAddress address={cellInfo.cellOutput.lock} /></div>
-          <CellContent cellInfo={cellInfo} />
-          <div className="flex flex-row items-center justify-end"><CellCapacity cellInfo={cellInfo} /></div>
+          <div className="flex flex-row justify-between">
+            <CKBAddress address={cellInfo.cellOutput.lock} />
+            <RefreshCw className="cursor-pointer" size={16} onClick={() => setPannel(prev => prev === "assets" ? "source" : "assets")} />
+          </div>
+          {
+            pannel === "assets" && (
+              <>
+                <CellAssets cellInfo={cellInfo} />
+              </>
+            )
+          }
+          {
+            pannel === "source" && (
+              <>
+                <CellContent cellInfo={cellInfo} />
+                <div className="flex flex-row items-center justify-end"><CellCapacity cellInfo={cellInfo} /></div>
+              </>
+            )
+          }
         </>
       )}
     </QuerySuspense>
@@ -176,6 +194,22 @@ function CellContent({ cellInfo }: { cellInfo: CellAny }) {
 
       <div className="text-[#999]">data</div>
       <div className="pl-4">{cellInfo.outputData}</div>
+    </div>
+  )
+}
+
+
+function CellAssets({ cellInfo }: { cellInfo: CellAny }) {
+
+  const assets = parseData({ typeScript: cellInfo.cellOutput.type }, cellInfo.outputData)
+  return (
+    <div>
+      {
+        assets && (
+          JSON.stringify(assets)
+        )
+      }
+      <div className="font-hash text-right">{shannonToCkb(cellInfo.cellOutput.capacity.toString())} CKB</div>
     </div>
   )
 }

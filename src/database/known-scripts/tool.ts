@@ -10,7 +10,7 @@ export type KnownScriptInfo = {
   sourceUrl: string | undefined;
   verified: boolean;
   /** for cell parser */
-  cellTypeTag?: "udt" | "spore" | "spore-cluster" | "dao"
+  cellTypeTag?: "udt" | "spore" | "spore-cluster" | "dao" | "ckbfs"
   /** place the latest deployment to the top */
   deployments: Record<Network, KnownScriptDepolyment[]>
 }
