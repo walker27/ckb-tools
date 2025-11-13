@@ -2,6 +2,7 @@ import { ckbfsDataParseUnit } from "./dpu.ckbfs";
 import { daoDataParseUnit } from "./dpu.dao";
 import { sporeDataParseUnit } from "./dpu.spore";
 import { sporeClusterDataParseUnit } from "./dpu.sporeCluster";
+import { typeIdDataParseUnit } from "./dpu.typeId";
 import { udtDataParseUnit } from "./dpu.udt";
 import { type DataParseUnit, type DPUMatchParams } from "./tool";
 
@@ -12,6 +13,7 @@ type ExtractTypeAndParseResult<T = any> = T extends DataParseUnit ? {
 } : never;
 
 export type DPUPaseResult = undefined
+  | ExtractTypeAndParseResult<typeof typeIdDataParseUnit>
   | ExtractTypeAndParseResult<typeof udtDataParseUnit>
   | ExtractTypeAndParseResult<typeof sporeDataParseUnit>
   | ExtractTypeAndParseResult<typeof sporeClusterDataParseUnit>
@@ -51,6 +53,7 @@ class DataParser {
 const parser = new DataParser();
 
 parser
+  .add(typeIdDataParseUnit)
   .add(udtDataParseUnit)
   .add(sporeDataParseUnit)
   .add(sporeClusterDataParseUnit)

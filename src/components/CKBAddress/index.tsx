@@ -65,19 +65,19 @@ export default function CKBAddress(props: CKBAddressProps) {
             <div className="pl-2">
               <div className="flex flex-row items-start">
                 <div className="flex-none basis-[90px]">code hash:</div>
-                <div className="flex-1 font-menlo">
+                <div className="flex-1 font-hash">
                   <HashText copyable>{addressInfo.script.codeHash}</HashText>
                 </div>
               </div>
               <div className="flex flex-row items-start">
                 <div className="flex-none basis-[90px]">hash type:</div>
-                <div className="flex-1 font-menlo">
+                <div className="flex-1 font-hash">
                   <HashText copyable>{addressInfo.script.hashType}</HashText>
                 </div>
               </div>
               <div className="flex flex-row items-start">
                 <div className="flex-none basis-[90px]">args: </div>
-                <div className="flex-1 font-menlo">
+                <div className="flex-1 font-hash">
                   <HashText copyable>{addressInfo.script.args}</HashText>
                 </div>
               </div>
@@ -85,7 +85,7 @@ export default function CKBAddress(props: CKBAddressProps) {
           </div>
           <div>
             <div className="text-[#aaa]">Script Hash</div>
-            <div className="font-menlo">
+            <div className="font-hash">
               <HashText copyable>{addressInfo.scriptHash}</HashText>
             </div>
           </div>

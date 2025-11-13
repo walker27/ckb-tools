@@ -1,23 +1,20 @@
 import useCell from "@/hooks/useCell";
 import { useNetwork } from "@/store/useNetwork";
-import { QueryCache } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import CKBAddress from "../CKBAddress";
 import { Button } from "antd";
 import { rootQueryClient } from "@/lib/queryClient";
 import { shannonToCkb } from "@/lib/tool";
 import HashText from "../HashText";
-import { ccc, mol, type CellAny } from "@ckb-ccc/ccc";
+import { ccc, type CellAny } from "@ckb-ccc/ccc";
 import QuerySuspense from "../QuerySuspense";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "../ui/hover-card";
 import { Link } from "react-router";
 import { cn } from "@/lib/utils";
 import ScriptTag from "../ScriptTag";
-import BigNumber from "bignumber.js";
-import { Clock4, RefreshCw } from "lucide-react";
-import { parseSince } from "./tool.since";
+import { RefreshCw } from "lucide-react";
 import CellSince from "./Since";
-import parseData from "./dataDecoder";
+import CellAssets from "./CellAssets";
 
 
 type CellProps = {
@@ -105,9 +102,10 @@ function CellDetail(props: CellProps) {
           </div>
           {
             pannel === "assets" && (
-              <>
+              <div>
                 <CellAssets cellInfo={cellInfo} />
-              </>
+                <div className="font-hash text-right">{shannonToCkb(cellInfo.cellOutput.capacity.toString())} CKB</div>
+              </div>
             )
           }
           {
@@ -171,19 +169,19 @@ function CellContent({ cellInfo }: { cellInfo: CellAny }) {
                 <>
                   <div className="flex flex-row items-start">
                     <div className="flex-none basis-[90px]">code hash:</div>
-                    <div className="flex-1 font-menlo">
+                    <div className="flex-1 font-hash">
                       <HashText ellipsis={{ head: 6, tail: -6 }} copyable>{typeScript.codeHash}</HashText>
                     </div>
                   </div>
                   <div className="flex flex-row items-start">
                     <div className="flex-none basis-[90px]">hash type:</div>
-                    <div className="flex-1 font-menlo">
+                    <div className="flex-1 font-hash">
                       <HashText copyable>{typeScript.hashType}</HashText>
                     </div>
                   </div>
                   <div className="flex flex-row items-start">
                     <div className="flex-none basis-[90px]">args: </div>
-                    <div className="flex-1 font-menlo">
+                    <div className="flex-1 font-hash">
                       <HashText copyable>{typeScript.args}</HashText>
                     </div>
                   </div>
@@ -194,22 +192,6 @@ function CellContent({ cellInfo }: { cellInfo: CellAny }) {
 
       <div className="text-[#999]">data</div>
       <div className="pl-4">{cellInfo.outputData}</div>
-    </div>
-  )
-}
-
-
-function CellAssets({ cellInfo }: { cellInfo: CellAny }) {
-
-  const assets = parseData({ typeScript: cellInfo.cellOutput.type }, cellInfo.outputData)
-  return (
-    <div>
-      {
-        assets && (
-          JSON.stringify(assets)
-        )
-      }
-      <div className="font-hash text-right">{shannonToCkb(cellInfo.cellOutput.capacity.toString())} CKB</div>
     </div>
   )
 }
