@@ -1,12 +1,19 @@
 import { useNetwork } from "@/store/useNetwork";
 import { DataParseUnit, getCodeHashListFromCellType } from "./tool";
-import { toBigEndian } from "@nervosnetwork/ckb-sdk-utils";
 import { hexToUtf8 } from "@/utils/string";
+import { mol } from "@ckb-ccc/core";
 // import { parseSporeClusterData } from "@/utils/spore";
 
 const codeHashListMap = getCodeHashListFromCellType("spore-cluster")
 
+// pattern arr type: [ "name", "type", "offset", "len", "pattern", "args" ]
 
+// parse spore cluster data guideline: https://github.com/sporeprotocol/spore-sdk/blob/beta/docs/recipes/handle-cell-data.md
+const sporeClusterParser = mol.table({
+  name: mol.Bytes,
+  description: mol.Bytes,
+  mutantId: mol.BytesOpt
+})
 
 export const sporeClusterDataParseUnit = new DataParseUnit(
   "spore-cluster",
@@ -20,34 +27,21 @@ export const sporeClusterDataParseUnit = new DataParseUnit(
     return false;
   },
   (dataStr) => {
-    return parseSporeClusterData(dataStr);
+    try {
+      const parsed = sporeClusterParser.decode(dataStr)
+      const obj = {
+        name: hexToUtf8(parsed.name),
+        mutantId: parsed.mutantId,
+        description: JSON.parse(hexToUtf8(parsed.description)) as string | Record<string, any>,
+      }
+      return obj;
+    } catch (e) {
+      console.error(e);
+      return {
+        code: "parse error",
+        message: (e?.message ?? "unknown error") as string,
+      }
+    }
   }
 )
 
-
-// parse spore cluster data guideline: https://github.com/sporeprotocol/spore-sdk/blob/beta/docs/recipes/handle-cell-data.md
-function parseSporeClusterData(hexData: string) {
-  const data = hexData.replace(/^0x/g, "");
-
-  const nameOffset = Number(toBigEndian(`0x${data.slice(8, 16)}`)) * 2;
-  const descriptionOffset = Number(toBigEndian(`0x${data.slice(16, 24)}`)) * 2;
-
-  const name = hexToUtf8(`0x${data.slice(nameOffset + 8, descriptionOffset)}`);
-  const description = hexToUtf8(`0x${data.slice(descriptionOffset + 8)}`);
-  try {
-    const parsed = JSON.parse(description);
-    if (typeof parsed === "object") {
-      const v: Record<string, string> = { name };
-      Object.keys(parsed).forEach((key) => {
-        if (key === "name") {
-          throw new Error("name key is reserved");
-        }
-        v[key] = JSON.stringify(parsed[key], null, 2);
-      });
-      return v;
-    }
-  } catch {
-    // ignore
-  }
-  return { name, description };
-}

@@ -60,7 +60,7 @@ export default function Cell(props: CellProps) {
 
   if (txHash === "0x0000000000000000000000000000000000000000000000000000000000000000") return null;
   return (
-    <div className="flex flex-col border w-75 rounded-md">
+    <div className="flex flex-col border w-100 rounded-md">
       <div className="flex flex-row border-b p-2 justify-between items-center">
         <span className="font-hash">{
           showTransacion
@@ -102,9 +102,12 @@ function CellDetail(props: CellProps) {
           </div>
           {
             pannel === "assets" && (
-              <div>
+              <div className="flex flex-col gap-2">
+                <div className="flex flex-row justify-between items-center">
+                  <span>CKB</span>
+                  <span className="font-hash">{shannonToCkb(cellInfo.cellOutput.capacity.toString())}</span>
+                </div>
                 <CellAssets cellInfo={cellInfo} />
-                <div className="font-hash text-right">{shannonToCkb(cellInfo.cellOutput.capacity.toString())} CKB</div>
               </div>
             )
           }
