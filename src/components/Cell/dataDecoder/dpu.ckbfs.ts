@@ -1,5 +1,6 @@
-import { mol } from "@ckb-ccc/core";
+import { mol, type BytesLike } from "@ckb-ccc/core";
 import { DataParseUnit } from "./tool";
+import { hexToUtf8 } from "@/utils/string";
 
 
 const v2CodeHashList = [
@@ -10,12 +11,24 @@ const v3CodeHashList = [
   "0xb5d13ffe0547c78021c01fe24dce2e959a1ed8edbca3cb93dd2e9f57fb56d695"
 ]
 
+const decodeToUTF8 = (codec: mol.CodecLike<BytesLike, `0x${string}`>) => {
+  return {
+    ...codec,
+    decode: (bytes: BytesLike) => {
+      const str = codec.decode(bytes);
+      return hexToUtf8(str);
+    },
+  }
+}
+
 const v3Parser = mol.table({
   index: mol.Uint32,
   checksum: mol.Uint32,
-  content_type: mol.Bytes,
-  filename: mol.Bytes,
+  contentType: decodeToUTF8(mol.Bytes),
+  filename: decodeToUTF8(mol.Bytes),
 })
+
+
 
 const v2Parser = (() => {
   const Indexses = mol.vector(mol.Uint32)
@@ -27,8 +40,8 @@ const v2Parser = (() => {
   const CKBFSData = mol.table({
     index: Indexses,
     checksum: mol.Uint32,
-    content_type: mol.Bytes,
-    filename: mol.Bytes,
+    contentType: decodeToUTF8(mol.Bytes),
+    filename: decodeToUTF8(mol.Bytes),
     backlinks: mol.vector(BackLink),
   })
   return CKBFSData
@@ -57,7 +70,8 @@ export const ckbfsDataParseUnit = new DataParseUnit(
     const parser = findParser(typeScript?.codeHash);
     const errorReturn = { message: "parse failed" }
     try {
-      return parser?.decode(dataStr) ?? errorReturn;
+      const parsedData = parser?.decode(dataStr) ?? null;
+      return parsedData || errorReturn
     } catch (e) {
       console.error("ckbfs parse failed", e);
     }

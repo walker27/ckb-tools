@@ -3,7 +3,7 @@ import { useNetwork } from "@/store/useNetwork";
 import { PageContainer, ProDescriptions } from "@ant-design/pro-components";
 import { Editor } from "@monaco-editor/react";
 import { Input, message, Tabs } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type PropsWithChildren, type ReactNode } from "react";
 import BigNumber from "bignumber.js";
 import useTransaction from "@/hooks/useTransaction";
 import Cell from "@/components/Cell";
@@ -64,7 +64,50 @@ export default function TransactionPage() {
           },
         ]}
       />
+      <h2 className="text-2xl mt-5">Cell Demo (testnet)</h2>
+
+      <Block label="CKB">
+        <Cell txHash={"0xaec423c2af7fe844b476333190096b10fc5726e6d9ac58a9b71f71ffac204fee"} index={1} showTransacion />
+      </Block>
+
+      <Block label="Script or TypeID?">
+        <Cell txHash={"0xaec423c2af7fe844b476333190096b10fc5726e6d9ac58a9b71f71ffac204fee"} index={0} showTransacion />
+      </Block>
+
+      <Block label="UDT">
+        <Cell txHash={"0x08318afd38bec39d495acb77afbc4e0f0f6e62e3f75842ae72964225240f08fc"} index={1} showTransacion />
+        <Cell txHash={"0xb2c54c3ff8677794127d9db6d1843d73f2c935afd329dc20a9a692a9decec941"} index={1} showTransacion />
+      </Block>
+
+      <Block label="DAO">
+        <Cell txHash={"0x27800e41d447aa3c84996a0f5edd2df284d05bb39f17031ab6f2a5147230c921"} index={0} showTransacion />
+        <Cell txHash={"0x8d6010484c84868d56dbe0db2e5adb5d5dd7d5a03e901fcf4a59df3c7feafbb9"} index={0} showTransacion />
+      </Block>
+
+      <Block label="Spore Cluster">
+        <Cell txHash={"0x012f343cd71443fdb0aa608e6934b310e8671aa86d928e24d487188fa6d0eca9"} index={0} showTransacion />
+      </Block>
+
+      <Block label="Spore">
+        <Cell txHash={"0x012f343cd71443fdb0aa608e6934b310e8671aa86d928e24d487188fa6d0eca9"} index={1} showTransacion />
+      </Block>
+
+      <Block label="CKBFS">
+        <Cell txHash={"0x27c3702ac9a1f255bd1a274da1c7b18bdf0bb1e2b3cfd1e6902355697551ca9a"} index={0} showTransacion />
+      </Block>
     </PageContainer>
+  )
+}
+
+function Block({ label, children }: PropsWithChildren<{ label: ReactNode }>) {
+
+  return (
+    <div className="mt-5">
+      <h3 className="text-xl">{label}</h3>
+      <div className="flex flex-row flex-wrap gap-2 mt-2">
+        {children}
+      </div>
+    </div>
   )
 }
 

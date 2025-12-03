@@ -1,6 +1,7 @@
 import type { DefaultOptionType } from "antd/es/select";
 import { create } from "zustand";
 import { ccc } from '@ckb-ccc/core'
+import { setupDobConfig } from "@/utils/spore";
 
 
 const networkMap = {
@@ -35,6 +36,7 @@ const useNetwork = create<UseNodeServiceStore>((set, get) => {
         url: networkMap[network],
       })
       set({ network, networkService })
+      setupDobConfig(network)
     },
   };
 });

@@ -9,7 +9,7 @@ import HashText from "../HashText";
 
 type ScriptTagProps = {
   category: "lock" | "type";
-  script?: ScriptLike
+  script?: Pick<ScriptLike, "codeHash">
   className?: string;
   short?: boolean;
   withTag?: boolean;

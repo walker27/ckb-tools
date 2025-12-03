@@ -15,6 +15,7 @@
     "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "@ckb-ccc/ccc": "^1.1.21",
     "@monaco-editor/react": "^4.8.0-rc.2",
+    "@nervape/dob-render": "^0.2.7",
     "@radix-ui/react-hover-card": "^1.1.15",
     "@react-router/node": "^7.9.4",
     "@tailwindcss/vite": "^4.1.14",
@@ -26,6 +27,7 @@
     "isbot": "^5",
     "js-base64": "^3.7.8",
     "ldrs": "^1.1.9",
+    "lodash": "^4.17.21",
     "lucide-react": "^0.546.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
@@ -37,6 +39,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
+    "@types/lodash": "^4.17.21",
     "@types/node": "^24.6.0",
     "@types/react": "^19.1.16",
     "@types/react-dom": "^19.1.9",

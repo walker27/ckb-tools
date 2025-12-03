@@ -103,9 +103,9 @@ function CellDetail(props: CellProps) {
           {
             pannel === "assets" && (
               <div className="flex flex-col gap-2">
-                <div className="flex flex-row justify-between items-center">
-                  <span>CKB</span>
+                <div className="flex flex-row justify-end items-center gap-2">
                   <span className="font-hash">{shannonToCkb(cellInfo.cellOutput.capacity.toString())}</span>
+                  <span>CKB</span>
                 </div>
                 <CellAssets cellInfo={cellInfo} />
               </div>
@@ -194,7 +194,7 @@ function CellContent({ cellInfo }: { cellInfo: CellAny }) {
       </div>
 
       <div className="text-[#999]">data</div>
-      <div className="pl-4">{cellInfo.outputData}</div>
+      <div className="pl-4 break-all">{cellInfo.outputData}</div>
     </div>
   )
 }
