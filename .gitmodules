@@ -1,0 +1,3 @@
+[submodule "ckb-labels"]
+	path = ckb-labels
+	url = https://github.com/appfi5/ckb-labels.git
