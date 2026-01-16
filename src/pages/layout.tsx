@@ -52,9 +52,8 @@ export default function RootLayout() {
   const pathname = location.pathname;
 
   return (
-      <Layout className="min-h-full p-5">
-        <div className="flex flex-row justify-between">
-          <div></div>
+      <Layout className="min-h-full">
+        <div className="absolute right-5 top-5">
           <NetworkSwitch />
         </div>
         <Outlet />
