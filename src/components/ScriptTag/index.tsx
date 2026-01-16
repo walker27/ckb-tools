@@ -2,7 +2,7 @@ import clientDB from "@/database";
 import type { ScriptLike } from "@ckb-ccc/core";
 import { useQuery } from "@tanstack/react-query";
 import styles from "./index.module.scss";
-import classNames from "classnames";
+import classNames from "clsx";
 // import Link from "next/link";
 // import TextEllipsis from "../TextEllipsis";
 import HashText from "../HashText";

@@ -1,74 +1,63 @@
-import { GithubFilled, InfoCircleFilled, QuestionCircleFilled } from "@ant-design/icons";
-import { ProLayout } from "@ant-design/pro-components";
+import NetworkSwitch from "@/components/NetworkSwitch";
+import { Layout, Menu, type MenuProps } from "antd";
+import { useState } from "react";
 import { Link, Outlet, useLocation } from "react-router";
 
+const menuItems: MenuProps['items'] = [
+  {
+    key: 'guidance',
+    label: (
+      <Link to="/guidance">
+        Guidance
+      </Link>
+    )
+  },
+  {
+    key: 'address',
+    label: (
+      <Link to="/address">
+        Address
+      </Link>
+    )
+  },
+  {
+    key: 'transaction',
+    label: (
+      <Link to="/transaction">
+        Transaction
+      </Link>
+    )
+  },
+  // {
+  //   path: '/nft',
+  //   name: 'NFT',
+  //   // icon: <CrownOutlined />,
+  //   // access: 'canAdmin',
+  //   // component: './home',
+  //   routes: [
+  //     {
+  //       path: '/nft/dob',
+  //       name: 'DOB',
+  //       // icon: <CrownOutlined />,
+  //       // access: 'canAdmin',
+  //       component: './nft/dob',
+  //     },
+  //   ],
+  // },
+];
 
 export default function RootLayout() {
   const location = useLocation();
+  const [collapsed, setCollapsed] = useState(false);
+  const pathname = location.pathname;
 
   return (
-    <ProLayout
-      fixSiderbar
-      logo={<img src="/nervos.black.svg" alt="logo" width="32" height="32" />}
-      title="CKB Tools"
-      route={{
-        path: '/',
-        routes: [
-          {
-            path: '/guidance',
-            name: 'Guidance',
-            // icon: <CrownOutlined />,
-            // access: 'canAdmin',
-            component: './guidance',
-          },
-          {
-            path: '/address',
-            name: 'Address',
-            // icon: <CrownOutlined />,
-            // access: 'canAdmin',
-            component: './address',
-          },
-          {
-            path: '/transaction',
-            name: 'Transaction',
-            // icon: <CrownOutlined />,
-            // access: 'canAdmin',
-            component: './transaction',
-          },
-          // {
-          //   path: '/nft',
-          //   name: 'NFT',
-          //   // icon: <CrownOutlined />,
-          //   // access: 'canAdmin',
-          //   // component: './home',
-          //   routes: [
-          //     {
-          //       path: '/nft/dob',
-          //       name: 'DOB',
-          //       // icon: <CrownOutlined />,
-          //       // access: 'canAdmin',
-          //       component: './nft/dob',
-          //     },
-          //   ],
-          // },
-        ],
-      }}
-      location={{
-        pathname: location.pathname,
-      }}
-      onMenuHeaderClick={(e) => console.log(e)}
-      menuItemRender={(item, dom) => (
-        <Link to={item.path || "/home"}>
-          {dom}
-        </Link>
-      )}
-      actionsRender={() => [
-        <InfoCircleFilled key="InfoCircleFilled" />,
-        <QuestionCircleFilled key="QuestionCircleFilled" />,
-        <GithubFilled key="GithubFilled" />,
-      ]}
-    >
-      <Outlet />
-    </ProLayout>
+      <Layout className="min-h-full p-5">
+        <div className="flex flex-row justify-between">
+          <div></div>
+          <NetworkSwitch />
+        </div>
+        <Outlet />
+      </Layout>
   )
 }

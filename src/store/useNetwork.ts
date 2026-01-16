@@ -4,7 +4,7 @@ import { ccc } from '@ckb-ccc/core'
 import { setupDobConfig } from "@/utils/spore";
 
 
-const networkMap = {
+export const networkMap = {
   // https://testnet.ckb.dev,https://testnet.ckbapp.dev
   testnet: "https://testnet.ckb.dev",
   // https://mainnet.ckb.dev,https://mainnet.ckbapp.dev
